@@ -59,11 +59,65 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
 window.addEventListener('scroll', function() {
     const nav = document.querySelector('nav');
     if (window.scrollY > 50) {
-        nav.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-        nav.style.background = 'white';
+        nav.style.boxShadow = '0 2px 10px var(--shadow)';
+        nav.style.background = 'var(--nav-bg)';
     } else {
         nav.style.boxShadow = 'none';
         nav.style.background = 'transparent';
     }
+});
 
+// Fonction pour changer l'image principale de la galerie
+function changeImage(src) {
+    document.getElementById('main-image').src = src;
+    
+    // Mettre à jour les thumbnails actifs
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    thumbnails.forEach(thumb => {
+        thumb.classList.remove('active');
+    });
+    
+    event.currentTarget.classList.add('active');
+}
+
+// Gestion du mode sombre
+const themeToggle = document.getElementById('themeToggle');
+const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+// Synchroniser avec le thème de la page principale
+function syncTheme() {
+const savedTheme = localStorage.getItem('theme');
+const systemPrefersDark = prefersDarkScheme.matches;
+const currentTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+
+if (currentTheme === 'dark') {
+    document.documentElement.setAttribute('data-theme', 'dark');
+} else {
+    document.documentElement.removeAttribute('data-theme');
+}
+}
+
+// Appliquer le thème au chargement
+syncTheme();
+
+// Basculer le thème
+themeToggle.addEventListener('click', function() {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    let newTheme = 'light';
+    
+    if (currentTheme !== 'dark') {
+        newTheme = 'dark';
+        document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+        document.documentElement.removeAttribute('data-theme');
+    }
+    
+    localStorage.setItem('theme', newTheme);
+});
+
+// Écouter les changements de thème depuis d'autres pages
+window.addEventListener('storage', function(e) {
+    if (e.key === 'theme') {
+        syncTheme();
+    }
 });

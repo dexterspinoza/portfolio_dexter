@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design System Mobile - Portfolio Design</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variables et reset */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #f97316;
+            --secondary-dark: #ea580c;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --text: #334155;
+            --bg: #ffffff;
+            --card-bg: #ffffff;
+            --footer-bg: #1e293b;
+            --nav-bg: #ffffff;
+            --border: #E5E7EB;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #f97316;
+            --secondary-dark: #ea580c;
+            --dark: #f1f5f9;
+            --light: #0f172a;
+            --gray: #64748b;
+            --text: #cbd5e1;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --footer-bg: #334155;
+            --nav-bg: #1e293b;
+            --border: #4B5563;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            background-color: var(--bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--nav-bg);
+            box-shadow: 0 2px 10px var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+        
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .theme-toggle:hover {
+            color: var(--primary);
+            transform: rotate(30deg);
+        }
+        
+        .menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+        }
+        
+        /* Header du projet */
+        .project-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 10rem 0 6rem;
+            margin-top: 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        
+        .project-subtitle {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .meta-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+        
+        .meta-value {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        /* Process Section */
+        .process-section {
+            padding: 4rem 0;
+            background: var(--light);
+            transition: var(--transition);
+        }
+        
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .process-step {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .process-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        /* Contenu principal */
+        .project-content {
+            padding: 5rem 0;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+        
+        .project-main {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .project-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .sidebar-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            color: var(--dark);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Galerie d'images design */
+        .design-gallery {
+            margin: 2rem 0;
+        }
+        
+        .gallery-main {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .gallery-main img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .gallery-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+        
+        .thumbnail {
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0.7;
+        }
+        
+        .thumbnail:hover, .thumbnail.active {
+            opacity: 1;
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+        
+        .thumbnail img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* Palette de couleurs */
+        .color-palette {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .color-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .color-swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+        
+        .color-name {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        /* Typography Showcase */
+        .typography-showcase {
+            margin: 2rem 0;
+        }
+        
+        .font-sample {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--light);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        
+        .font-large {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .font-medium {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .font-small {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+        
+        /* Technologies */
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+        }
+        
+        .tech-tag {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        [data-theme="dark"] .tech-tag {
+            background-color: #1e3a5f;
+            color: #93c5fd;
+        }
+        
+        /* Fonctionnalités */
+        .features-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .features-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--gray);
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .features-list li:before {
+            content: "✓";
+            color: var(--primary);
+            font-weight: bold;
+            display: inline-block;
+            width: 1.5em;
+            margin-right: 0.5rem;
+        }
+        
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Boutons d'action */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--secondary-dark);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Navigation entre projets */
+        .project-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--gray);
+        }
+        
+        .nav-project {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--text);
+        }
+        
+        .nav-project:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .nav-project.prev {
+            text-align: left;
+        }
+        
+        .nav-project.next {
+            text-align: right;
+            flex-direction: row-reverse;
+        }
+        
+        .nav-project i {
+            font-size: 1.2rem;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-project i:hover {
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-content a {
+            color: white;
+            transition: var(--transition);
+        }
+
+        .footer-content a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 968px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-sidebar {
+                order: -1;
+            }
+
+            .project-title {
+                font-size: 2.2rem;
+            }
+            
+            .gallery-thumbnails {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .project-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-project {
+                justify-content: space-between;
+            }
+            
+            .color-palette {
+                justify-content: center;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-project {
+                justify-content: space-between;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--card-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+
+            .nav-links.mobile-visible {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--nav-bg);
+                padding: 1rem;
+                box-shadow: 0 2px 10px var(--shadow);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">MonPortfolio</div>
+            <div class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="index.html#about">À propos</a></li>
+                <li><a href="index.html#projects">Projets</a></li>
+                <li><a href="index.html#skills">Compétences</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header du projet -->
+    <header class="project-header">
+        <div class="container">
+            <a href="index.html#projects" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Retour aux projets
+            </a>
+            <h1 class="project-title">Designe Grphique: Social Media</h1>
+            <p class="project-subtitle">Conception d'un pack de social media pour le centre une plateforme de fortion en ligne.</p>
+            
+            <div class="project-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Date</span>
+                    <span class="meta-value">Octobre 2025</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Catégorie</span>
+                    <span class="meta-value">Design Graphique</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Client</span>
+                    <span class="meta-value">ZITOUNA CAREER</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Durée</span>
+                    <span class="meta-value">2 Jours</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <div class="container">
+            <h2>Processus de Design</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Recherche Utilisateur</h3>
+                    <p>Interviews pour comprendre les besoins du client en matière de valeur</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Architecture Information</h3>
+                    <p>Création de user flows et wireframes pour structurer l'expérience utilisateur de manière intuitive.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Design Visuel</h3>
+                    <p>Développement du système de design avec palette de couleurs, typographie et composants réutilisables.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Prototypage & Test</h3>
+                    <p>Création de prototypes interactifs et tests utilisateurs pour valider les solutions design.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contenu principal -->
+    <main class="project-content">
+        <div class="container">
+            <div class="project-grid">
+                <div class="project-main">
+                    <h2>Présentation du Projet</h2>
+                    <p>Ce projet consistait à créer un système de design complet pour une application mobile de gestion financière. L'objectif était de développer une expérience utilisateur intuitive et engageante pour aider les utilisateurs à mieux gérer leurs finances personnelles.</p>
+                    
+                    <p>Le défi principal était de simplifier des concepts financiers complexes tout en maintenant une interface élégante et facile à utiliser. J'ai adopté une approche centrée sur l'utilisateur en menant des recherches approfondies avant de passer à la phase de conception.</p>
+                    
+                    <div class="design-gallery">
+                        <div class="gallery-main">
+                            <img src="IMG/IMG_0937.jpg" alt="Mockup application mobile" id="main-image">
+                        </div>
+                        <div class="gallery-thumbnails">
+                            <div class="thumbnail active" onclick="changeImage('IMG/IMG_0937.jpg')">
+                                <img src="IMG/IMG_0937.jpg" alt="Vue principale">
+                            </div>
+                            <div class="thumbnail" onclick="changeImage('IMG/IMG_0938.jpg')">
+                                <img src="IMG/IMG_0938.jpg" alt="Interface dashboard">
+                            </div>
+                            <div class="thumbnail" onclick="changeImage('IMG/IMG_0939.jpg')">
+                                <img src="IMG/IMG_0939.jpg" alt="Détails transactions">
+                            </div>
+                            <div class="thumbnail" onclick="changeImage('IMG/IMG_0941.jpg')">
+                                <img src="IMG/IMG_0941.jpg" alt="Graphiques analytics">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3>Palette de Couleurs</h3>
+                    <div class="color-palette">
+                        <div class="color-item">
+                            <div class="color-swatch" style="background: #8B5CF6;"></div>
+                            <span class="color-name">Primary<br>#8B5CF6</span>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-swatch" style="background: #F59E0B;"></div>
+                            <span class="color-name">Secondary<br>#F59E0B</span>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-swatch" style="background: #10B981;"></div>
+                            <span class="color-name">Success<br>#10B981</span>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-swatch" style="background: #EF4444;"></div>
+                            <span class="color-name">Error<br>#EF4444</span>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-swatch" style="background: #1F2937; border: 1px solid #374151;"></div>
+                            <span class="color-name">Dark<br>#1F2937</span>
+                        </div>
+                    </div>
+                    
+                    <h3>Typographie</h3>
+                    <div class="typography-showcase">
+                        <div class="font-sample">
+                            <div class="font-large">Poppins Bold</div>
+                            <div class="font-small">Titres principaux - 32px</div>
+                        </div>
+                        <div class="font-sample">
+                            <div class="font-medium">Poppins SemiBold</div>
+                            <div class="font-small">Sous-titres - 24px</div>
+                        </div>
+                        <div class="font-sample">
+                            <div class="font-small">Poppins Regular</div>
+                            <div class="font-small">Corps de texte - 16px</div>
+                        </div>
+                    </div>
+                    
+                    <h3>Défis et Solutions</h3>
+                    <p>Le principal défi était de créer une interface qui rendrait la gestion financière accessible à tous, y compris aux utilisateurs peu familiarisés avec les concepts financiers. J'ai résolu ce problème en utilisant un langage simple, des visualisations claires et un parcours utilisateur progressif.</p>
+                    
+                    <p>Un autre défi important concernait la sécurité et la confiance. J'ai intégré des éléments visuels rassurants et une transparence totale sur le traitement des données pour renforcer la confiance des utilisateurs.</p>
+                    
+                    <h3>Résultats et Impact</h3>
+                    <p>Le système de design a été implémenté avec succès dans l'application mobile. Les tests utilisateurs ont montré une amélioration de 40% dans la facilité d'utilisation et une réduction de 60% du temps nécessaire pour accomplir les tâches principales.</p>
+                    
+                    <p>Les retours des utilisateurs ont été extrêmement positifs, avec une note moyenne de 4.8/5 sur les stores d'applications. Le design a également permis de réduire les coûts de développement grâce à des composants réutilisables et une documentation complète.</p>
+                    
+                    <div class="action-buttons">
+                        <a href="#" class="btn">
+                            <i class="fas fa-eye"></i> Voir le prototype
+                        </a>
+                        <a href="#" class="btn btn-outline">
+                            <i class="fas fa-download"></i> Télécharger le case study
+                        </a>
+                        <a href="index.html#projects" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Retour aux projets
+                        </a>
+                    </div>
+                    
+                    <div class="project-navigation">
+                        <a href="#" class="nav-project prev">
+                            <i class="fas fa-chevron-left"></i>
+                            <div>
+                                <div class="nav-label">Projet précédent</div>
+                                <div class="nav-title">Identité visuelle Café</div>
+                            </div>
+                        </a>
+                        <a href="#" class="nav-project next">
+                            <i class="fas fa-chevron-right"></i>
+                            <div>
+                                <div class="nav-label">Projet suivant</div>
+                                <div class="nav-title">Site E-commerce Luxury</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="project-sidebar">
+                    <div class="sidebar-card">
+                        <h3>Technologies utilisées</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag">Figma</span>
+                            <span class="tech-tag">Adobe XD</span>
+                            <span class="tech-tag">Illustrator</span>
+                            <span class="tech-tag">Photoshop</span>
+                            <span class="tech-tag">Miro</span>
+                            <span class="tech-tag">Principle</span>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-card">
+                        <h3>Détails du Projet</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                            <div>
+                                <strong style="color: var(--primary);">Durée:</strong><br>
+                                <span>8 semaines</span>
+                            </div>
+                            <div>
+                                <strong style="color: var(--primary);">Client:</strong><br>
+                                <span>Torréfaction Artisanale</span>
+                            </div>
+                            <div>
+                                <strong style="color: var(--primary);">Mission:</strong><br>
+                                <span>Identité visuelle complète</span>
+                            </div>
+                            <div>
+                                <strong style="color: var(--primary);">Statut:</strong><br>
+                                <span>Livré et déployé</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-card">
+                        <h3>Livrables</h3>
+                        <ul class="features-list">
+                            <li>Audit UX et analyse concurrentielle</li>
+                            <li>Personas et user journeys</li>
+                            <li>Wireframes et prototypes</li>
+                            <li>Système de design complet</li>
+                            <li>Guide de style et documentation</li>
+                            <li>Tests utilisateurs et itérations</li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3>Compétences démontrées</h3>
+                        <ul class="features-list">
+                            <li>Recherche utilisateur qualitative</li>
+                            <li>Design thinking</li>
+                            <li>Prototypage avancé</li>
+                            <li>Design system</li>
+                            <li>Tests d'utilisabilité</li>
+                            <li>Accessibilité WCAG</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <p>© 2025 MonPortfolio. Tous droits réservés.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-dribbble"></i></a>
+                <a href="#"><i class="fab fa-behance"></i></a>
+                <a href="https://www.linkedin.com/in/dexternkamta/"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>Designed by <a href="">DEXTER</a></p>
+        </div>
+    </footer>
+
+     <script src="JS/script.js"></script>
+</body>
+</html>

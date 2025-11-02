@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique de Confidentialité - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variables et reset */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #64748b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --text: #334155;
+            --bg: #ffffff;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --nav-bg: #ffffff;
+            --footer-bg: #1e293b;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #94a3b8;
+            --dark: #f1f5f9;
+            --light: #1e293b;
+            --text: #cbd5e1;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --border: #334155;
+            --nav-bg: #1e293b;
+            --footer-bg: #334155;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background-color: var(--bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--nav-bg);
+            box-shadow: 0 2px 10px var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Toggle Mode Sombre */
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .theme-toggle:hover {
+            color: var(--primary);
+            transform: rotate(30deg);
+        }
+        
+        .theme-toggle .fa-sun {
+            display: none;
+        }
+        
+        [data-theme="dark"] .theme-toggle .fa-moon {
+            display: none;
+        }
+        
+        [data-theme="dark"] .theme-toggle .fa-sun {
+            display: block;
+        }
+        
+        .menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+        }
+
+        /* Header */
+        .privacy-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 8rem 0 4rem;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        .privacy-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .privacy-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Content */
+        .privacy-content {
+            padding: 4rem 0;
+        }
+
+        .privacy-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h2 i {
+            color: var(--primary);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin: 2rem 0 1rem;
+            color: var(--dark);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            text-align: justify;
+        }
+
+        .highlight {
+            background: var(--primary);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .notice {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+            margin: 2rem 0;
+        }
+
+        .dark-mode .notice {
+            background: #1e3a8a;
+            color: #dbeafe;
+            border-left-color: #60a5fa;
+        }
+
+        .warning {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #f59e0b;
+            margin: 2rem 0;
+        }
+
+        .dark-mode .warning {
+            background: #451a03;
+            color: #fed7aa;
+            border-left-color: #d97706;
+        }
+
+        .contact-info {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            transition: var(--transition);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--light);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .toggle-content {
+            background: var(--light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .toggle-content summary {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .toggle-content[open] {
+            background: var(--card-bg);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-content a {
+            color: white;
+            transition: var(--transition);
+        }
+
+        .footer-content a:hover {
+            color: var(--primary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .privacy-card {
+                padding: 2rem;
+            }
+            
+            .privacy-title {
+                font-size: 2rem;
+            }
+            
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--nav-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+
+            .nav-links.mobile-visible {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--nav-bg);
+                padding: 1rem;
+                box-shadow: 0 2px 10px var(--shadow);
+            }
+
+            .data-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .privacy-card {
+                padding: 1.5rem;
+            }
+            
+            .privacy-header {
+                padding: 6rem 0 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">MonPortfolio</div>
+            <div class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Accueil</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Basculer le mode sombre">
+                        <i class="fas fa-moon"></i>
+                        <i class="fas fa-sun"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="privacy-header">
+        <div class="container">
+            <h1 class="privacy-title">Politique de Confidentialité</h1>
+            <p class="privacy-subtitle">Protection de vos données personnelles et respect de votre vie privée</p>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main class="privacy-content">
+        <div class="container">
+            <div class="privacy-card">
+                <h1>POLITIQUE DE CONFIDENTIALITÉ ET PROTECTION DES DONNÉES</h1>
+                
+                <div class="notice">
+                    <i class="fas fa-info-circle"></i>
+                    <strong>INFORMATION IMPORTANTE :</strong> Cette politique de confidentialité décrit comment vos données personnelles sont collectées, utilisées et protégées sur ce portfolio professionnel.
+                </div>
+
+                <h2><i class="fas fa-gavel"></i> 1. CADRE JURIDIQUE ET CONFORMITÉ</h2>
+                <p>Le présent portfolio respecte scrupuleusement les dispositions du <span class="highlight">Règlement Général sur la Protection des Données (RGPD)</span> et de la <span class="highlight">Loi Informatique et Libertés</span> modifiée. Cette politique s'inscrit dans le cadre légal défini par :</p>
+                <ul>
+                    <li>Le Règlement (UE) 2016/679 du Parlement européen</li>
+                    <li>La Loi n°78-17 du 6 janvier 1978 relative à l'informatique</li>
+                    <li>Les directives de la CNIL (Commission Nationale de l'Informatique et des Libertés)</li>
+                    <li>La Convention 108+ du Conseil de l'Europe</li>
+                </ul>
+
+                <h2><i class="fas fa-user-shield"></i> 2. RESPONSABLE DE TRAITEMENT</h2>
+                <div class="contact-info">
+                    <p><strong>NGASSA NKAMTA DEXTER</strong><br>
+                    Développeur/Designer indépendant<br>
+                    Email : dexternkamta@gmail.com<br>
+                    SIRET : //</p>
+                </div>
+
+                <h2><i class="fas fa-database"></i> 3. DONNÉES PERSONNELLES COLLECTÉES</h2>
+                <h3>3.1 Données de navigation</h3>
+                <p>Lors de votre visite, les données techniques suivantes peuvent être collectées :</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Type de donnée</th>
+                            <th>Finalité</th>
+                            <th>Base légale</th>
+                            <th>Conservation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Adresse IP</td>
+                            <td>Sécurité et analyse du trafic</td>
+                            <td>Intérêt légitime</td>
+                            <td>12 mois</td>
+                        </tr>
+                        <tr>
+                            <td>User Agent</td>
+                            <td>Compatibilité technique</td>
+                            <td>Intérêt légitime</td>
+                            <td>12 mois</td>
+                        </tr>
+                        <tr>
+                            <td>Pages consultées</td>
+                            <td>Amélioration du contenu</td>
+                            <td>Consentement</td>
+                            <td>24 mois</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>3.2 Données de contact</h3>
+                <p>Via le formulaire de contact, je collecte :</p>
+                <ul>
+                    <li>Nom et prénom</li>
+                    <li>Adresse email professionnelle</li>
+                    <li>Nom de l'entreprise/organisation</li>
+                    <li>Objet et contenu du message</li>
+                    <li>Date et heure d'envoi</li>
+                </ul>
+
+                <h2><i class="fas fa-cookie"></i> 4. COOKIES ET TRACEURS</h2>
+                <h3>4.1 Catégories de cookies utilisés</h3>
+                <details class="toggle-content">
+                    <summary>Cookies essentiels (exemptés de consentement)</summary>
+                    <ul>
+                        <li>Session utilisateur</li>
+                        <li>Sécurité du formulaire</li>
+                        <li>Préférence de langue</li>
+                        <li>Mode sombre/clair</li>
+                    </ul>
+                </details>
+
+                <details class="toggle-content">
+                    <summary>Cookies analytiques (avec consentement)</summary>
+                    <ul>
+                        <li>Google Analytics (_ga, _gid)</li>
+                        <li>Statistiques de navigation</li>
+                        <li>Mesure d'audience</li>
+                    </ul>
+                </details>
+
+                <h3>4.2 Gestion des cookies</h3>
+                <p>Vous pouvez à tout moment :</p>
+                <ul>
+                    <li>Retirer votre consentement via le bandeau cookies</li>
+                    <li>Configurer votre navigateur pour refuser les cookies</li>
+                    <li>Supprimer les cookies existants via les paramètres de votre navigateur</li>
+                </ul>
+
+                <h2><i class="fas fa-bullseye"></i> 5. FINALITÉS DU TRAITEMENT</h2>
+                <p>Vos données sont utilisées exclusivement pour :</p>
+                <ul>
+                    <li>Répondre à vos demandes de contact</li>
+                    <li>Améliorer l'expérience utilisateur du portfolio</li>
+                    <li>Assurer la sécurité et l'intégrité du site</li>
+                    <li>Produire des statistiques anonymisées</li>
+                    <li>Respecter les obligations légales</li>
+                </ul>
+
+                <div class="warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>PRINCIPE DE MINIMISATION :</strong> Seules les données strictement nécessaires sont collectées. Aucune donnée sensible (santé, origine raciale, opinions politiques, etc.) n'est traitée.
+                </div>
+
+                <h2><i class="fas fa-share-alt"></i> 6. PARTAGE DES DONNÉES</h2>
+                <h3>6.1 Sous-traitants</h3>
+                <p>Certains services externes peuvent avoir accès à vos données :</p>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Sous-traitant</th>
+                            <th>Service</th>
+                            <th>Pays</th>
+                            <th>Garanties</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Google LLC</td>
+                            <td>Analytics</td>
+                            <td>États-Unis</td>
+                            <td>Clauses contractuelles types</td>
+                        </tr>
+                        <tr>
+                            <td>GITHUB</td>
+                            <td>Hébergement</td>
+                            <td>France/UE</td>
+                            <td>RGPD compliant</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>6.2 Transferts hors UE</h3>
+                <p>En cas de transfert hors de l'Espace Économique Européen, des garanties appropriées sont mises en place conformément à l'article 46 du RGPD.</p>
+
+                <h2><i class="fas fa-lock"></i> 7. SÉCURITÉ DES DONNÉES</h2>
+                <p>Des mesures techniques et organisationnelles robustes sont implémentées :</p>
+                <ul>
+                    <li>Chiffrement HTTPS (SSL/TLS)</li>
+                    <li>Sauvegardes régulières et sécurisées</li>
+                    <li>Authentification forte des accès administrateur</li>
+                    <li>Journalisation des accès sensibles</li>
+                    <li>Protection contre les intrusions</li>
+                </ul>
+
+                <h2><i class="fas fa-calendar-alt"></i> 8. DURÉE DE CONSERVATION</h2>
+                <h3>8.1 Délais de conservation</h3>
+                <ul>
+                    <li><strong>Données de contact :</strong> 3 ans après le dernier contact</li>
+                    <li><strong>Données de navigation :</strong> 25 mois maximum</li>
+                    <li><strong>Cookies :</strong> 13 mois maximum</li>
+                    <li><strong>Preuves de consentement :</strong> 5 ans</li>
+                </ul>
+
+                <h3>8.2 Procédure de suppression</h3>
+                <p>À l'expiration des délais, vos données sont :</p>
+                <ul>
+                    <li>Anonymisées pour les données statistiques</li>
+                    <li>Définitivement supprimées des bases actives</li>
+                    <li>Archivées conformément aux obligations légales le cas échéant</li>
+                </ul>
+
+                <h2><i class="fas fa-user-cog"></i> 9. VOS DROITS</h2>
+                <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+
+                <details class="toggle-content">
+                    <summary>Droit d'accès (Article 15 RGPD)</summary>
+                    <p>Vous pouvez obtenir la communication des données vous concernant et des informations sur leur traitement.</p>
+                </details>
+
+                <details class="toggle-content">
+                    <summary>Droit de rectification (Article 16 RGPD)</summary>
+                    <p>Vous pouvez faire corriger les données inexactes ou incomplètes.</p>
+                </details>
+
+                <details class="toggle-content">
+                    <summary>Droit à l'effacement (Article 17 RGPD)</summary>
+                    <p>Vous pouvez demander la suppression de vos données dans les limites prévues par la loi.</p>
+                </details>
+
+                <details class="toggle-content">
+                    <summary>Droit à la limitation (Article 18 RGPD)</summary>
+                    <p>Vous pouvez demander la limitation temporaire du traitement de vos données.</p>
+                </details>
+
+                <details class="toggle-content">
+                    <summary>Droit à la portabilité (Article 20 RGPD)</summary>
+                    <p>Vous pouvez récupérer vos données dans un format structuré et lisible.</p>
+                </details>
+
+                <details class="toggle-content">
+                    <summary>Droit d'opposition (Article 21 RGPD)</summary>
+                    <p>Vous pouvez vous opposer au traitement pour des motifs légitimes.</p>
+                </details>
+
+                <h2><i class="fas fa-envelope"></i> 10. EXERCICE DE VOS DROITS</h2>
+                <div class="contact-info">
+                    <p>Pour exercer vos droits ou pour toute question relative à la protection de vos données :</p>
+                    <p><strong>Email dédié :</strong> privacy@votredomaine.com<br>
+                    <strong>Adresse postale :</strong> [VOTRE ADRESSE PROFESSIONNELLE]<br>
+                    <strong>Délai de réponse :</strong> 1 mois maximum</p>
+                </div>
+
+                <p>Votre demande doit être accompagnée d'une copie d'un justificatif d'identité. Aucune donnée sensible ne doit être communiquée par email non sécurisé.</p>
+
+                <h2><i class="fas fa-exclamation-circle"></i> 11. RÉCLAMATION AUPRÈS DE LA CNIL</h2>
+                <p>Si vous estimez que vos droits ne sont pas respectés, vous pouvez introduire une réclamation auprès de :</p>
+                <div class="contact-info">
+                    <p><strong>Commission Nationale de l'Informatique et des Libertés (CNIL)</strong><br>
+                    3 Place de Fontenoy<br>
+                    TSA 80715 - 75334 PARIS CEDEX 07<br>
+                    Tél : 01 53 73 22 22<br>
+                    Site web : <a href="https://www.cnil.fr" style="color: var(--primary);">www.cnil.fr</a></p>
+                </div>
+
+                <h2><i class="fas fa-code-branch"></i> 12. LIENS EXTERNES</h2>
+                <p>Ce portfolio peut contenir des liens vers des sites tiers. Cette politique de confidentialité ne s'applique pas aux pratiques de ces sites externes. Il vous est recommandé de consulter leurs politiques respectives.</p>
+
+                <h2><i class="fas fa-sync-alt"></i> 13. MISE À JOUR DE LA POLITIQUE</h2>
+                <p>Cette politique de confidentialité peut être mise à jour pour tenir compte de :</p>
+                <ul>
+                    <li>Évolutions législatives et réglementaires</li>
+                    <li>Changements techniques du portfolio</li>
+                    <li>Modifications des pratiques de traitement</li>
+                </ul>
+
+                <div class="notice">
+                    <i class="fas fa-bell"></i>
+                    <strong>NOTIFICATION DES MODIFICATIONS :</strong> Les utilisateurs seront informés des modifications substantielles via une notification sur le portfolio. La date de dernière mise à jour sera modifiée en conséquence.
+                </div>
+
+                <h2><i class="fas fa-file-contract"></i> 14. CONTACT DPO</h2>
+                <p>En ma qualité de travailleur indépendant, j'assume les fonctions de délégué à la protection des données (DPO) pour mon activité.</p>
+
+                <div class="contact-info">
+                    <p><strong>Dernière mise à jour :</strong> 02/11/2025<br>
+                    <strong>Version :</strong> 2.1<br>
+                    <strong>Statut :</strong> Conforme RGPD</p>
+                </div>
+
+                <div class="warning">
+                    <i class="fas fa-shield-alt"></i>
+                    <strong>ENGAGEMENT DE TRANSPARENCE :</strong> Cette politique de confidentialité a été rédigée avec pour objectif la plus grande transparence concernant le traitement de vos données personnelles. Toute utilisation de vos données se fera dans le strict respect de vos droits et des obligations légales.
+                </div>
+
+                <p style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: var(--secondary);">
+                    <i class="fas fa-user-shield"></i><br>
+                    Document à conserver - Politique de confidentialité<br>
+                    © 2025 NGASSA NKAMTA DEXTER - Conforme RGPD
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <p>© 2025 NGASSA NKAMTA DEXTER. Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="mentions_legales.html">Mentions légales</a>
+            </div>
+            <p>Portfolio professionnel - Créations originales protégées</p>
+        </div>
+    </footer>
+
+    <script src="JS/script.js"></script>
+</body>
+</html>

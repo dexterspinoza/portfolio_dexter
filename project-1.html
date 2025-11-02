@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu interactif JavaScript - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Variables et reset */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #f97316;
+            --secondary-dark: #ea580c;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --text: #334155;
+            --bg: #ffffff;
+            --card-bg: #ffffff;
+            --nav-bg: #ffffff;
+            --footer-bg: #1e293b;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #f97316;
+            --secondary-dark: #ea580c;
+            --dark: #f1f5f9;
+            --light: #0f172a;
+            --gray: #64748b;
+            --text: #cbd5e1;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --nav-bg: #1e293b;
+            --footer-bg: #334155;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            background-color: var(--bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--nav-bg);
+            box-shadow: 0 2px 10px var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Toggle Mode Sombre */
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .theme-toggle:hover {
+            color: var(--primary);
+            transform: rotate(30deg);
+        }
+        
+        .theme-toggle .fa-sun {
+            display: none;
+        }
+        
+        [data-theme="dark"] .theme-toggle .fa-moon {
+            display: none;
+        }
+        
+        [data-theme="dark"] .theme-toggle .fa-sun {
+            display: block;
+        }
+        
+        .menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+        }
+        
+        /* Header du projet */
+        .project-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 8rem 0 4rem;
+            margin-top: 60px;
+            text-align: center;
+        }
+        
+        .project-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .project-subtitle {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+        
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .meta-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+        
+        .meta-value {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        
+        /* Contenu principal */
+        .project-content {
+            padding: 5rem 0;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+        
+        .project-main {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .project-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .sidebar-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px var(--shadow);
+            transition: var(--transition);
+        }
+        
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+            color: var(--dark);
+        }
+        
+        p {
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Galerie d'images */
+        .project-gallery {
+            margin: 2rem 0;
+        }
+        
+        .gallery-main {
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 30px var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .gallery-main img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .gallery-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+        
+        .thumbnail {
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0.7;
+        }
+        
+        .thumbnail:hover, .thumbnail.active {
+            opacity: 1;
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+        
+        .thumbnail img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        /* Technologies */
+        .tech-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+        }
+        
+        .tech-tag {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        [data-theme="dark"] .tech-tag {
+            background-color: #1e3a5f;
+            color: #93c5fd;
+        }
+        
+        /* Fonctionnalités */
+        .features-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .features-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--gray);
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .features-list li:before {
+            content: "✓";
+            color: var(--primary);
+            font-weight: bold;
+            display: inline-block;
+            width: 1.5em;
+            margin-right: 0.5rem;
+        }
+        
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Boutons d'action */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px var(--shadow);
+        }
+        
+        .btn-secondary {
+            background: var(--secondary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--secondary-dark);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Navigation entre projets */
+        .project-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--gray);
+        }
+        
+        .nav-project {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--text);
+        }
+        
+        .nav-project:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .nav-project.prev {
+            text-align: left;
+        }
+        
+        .nav-project.next {
+            text-align: right;
+            flex-direction: row-reverse;
+        }
+        
+        .nav-project i {
+            font-size: 1.2rem;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-project i:hover {
+            color: white;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-content a {
+            color: white;
+            transition: var(--transition);
+        }
+
+        .footer-content a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 968px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-sidebar {
+                order: -1;
+            }
+            .project-title {
+                font-size: 2.2rem;
+            }
+            
+            .gallery-thumbnails {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .project-navigation {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-project {
+                justify-content: space-between;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--nav-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+
+            .nav-links.mobile-visible {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--nav-bg);
+                padding: 1rem;
+                box-shadow: 0 2px 10px var(--shadow);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">MonPortfolio</div>
+            <div class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="index.html#about">À propos</a></li>
+                <li><a href="index.html#projects">Projets</a></li>
+                <li><a href="index.html#skills">Compétences</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Basculer le mode sombre">
+                        <i class="fas fa-moon"></i>
+                        <i class="fas fa-sun"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header du projet -->
+    <header class="project-header">
+        <div class="container">
+            <a href="index.html#projects" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Retour aux projets
+            </a>
+            <h1 class="project-title">Jeu interactif JavaScript</h1>
+            <p class="project-subtitle">Un mini-jeu interactif développé en JavaScript vanilla qui utilise des événements DOM pour créer une expérience utilisateur immersive</p>
+            
+            <div class="project-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Date</span>
+                    <span class="meta-value">Octobre 2023</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Catégorie</span>
+                    <span class="meta-value">Développement Web</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Client</span>
+                    <span class="meta-value">Projet personnel</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Durée</span>
+                    <span class="meta-value">3 semaines</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="project-content">
+        <div class="container">
+            <div class="project-grid">
+                <div class="project-main">
+                    <h2>Présentation du projet</h2>
+                    <p>Ce projet est un jeu interactif développé entièrement en JavaScript vanilla, sans utilisation de frameworks externes. L'objectif était de créer une expérience de jeu engageante tout en maîtrisant les fondamentaux de la manipulation du DOM et la gestion des événements utilisateur.</p>
+                    
+                    <p>Le jeu propose plusieurs niveaux de difficulté, un système de score en temps réel, et des effets visuels qui réagissent aux interactions de l'utilisateur. L'interface a été conçue pour être intuitive et responsive, s'adaptant parfaitement à tous les appareils.</p>
+                    
+                    <div class="project-gallery">
+                        <div class="gallery-main">
+                            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Capture d'écran principale du jeu" id="main-image">
+                        </div>
+                        <div class="gallery-thumbnails">
+                            <div class="thumbnail active" onclick="changeImage('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')">
+                                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Vue principale">
+                            </div>
+                            <div class="thumbnail" onclick="changeImage('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1171&q=80')">
+                                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Interface du jeu">
+                            </div>
+                            <div class="thumbnail" onclick="changeImage('https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')">
+                                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Niveaux du jeu">
+                            </div>
+                            <div class="thumbnail" onclick="changeImage('https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80')">
+                                <img src="https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=300&q=80" alt="Tableau des scores">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3>Défis et solutions</h3>
+                    <p>Le principal défi de ce projet était de gérer les interactions utilisateur complexes tout en maintenant des performances optimales. J'ai mis en place un système d'événements efficace qui permet une réactivité immédiate aux actions du joueur.</p>
+                    
+                    <p>Un autre défi technique concernait la gestion de l'état du jeu et la synchronisation des différents éléments visuels. J'ai résolu ce problème en implémentant un pattern d'architecture modulaire qui sépare clairement la logique métier de l'interface utilisateur.</p>
+                    
+                    <h3>Fonctionnalités principales</h3>
+                    <ul class="features-list">
+                        <li>Système de niveaux progressifs avec difficulté croissante</li>
+                        <li>Calcul et affichage du score en temps réel</li>
+                        <li>Effets visuels et animations fluides avec CSS3</li>
+                        <li>Gestion des événements clavier et souris</li>
+                        <li>Sauvegarde locale des meilleurs scores</li>
+                        <li>Interface responsive adaptée mobile et desktop</li>
+                        <li>Système de particules pour les effets spéciaux</li>
+                        <li>Musique et effets sonores optionnels</li>
+                    </ul>
+                    
+                    <h3>Résultats et apprentissages</h3>
+                    <p>Ce projet m'a permis de consolider mes compétences en JavaScript pur et de mieux comprendre les mécanismes sous-jacents du DOM. J'ai également approfondi mes connaissances en optimisation des performances pour les applications interactives.</p>
+                    
+                    <p>Le jeu a été testé par plusieurs utilisateurs qui ont apprécié son ergonomie et son aspect engageant. Cette expérience m'a confirmé l'importance d'une approche centrée utilisateur dans le développement d'applications web.</p>
+                    
+                    <div class="action-buttons">
+                        <a href="#" class="btn">
+                            <i class="fas fa-external-link-alt"></i> Voir le projet en ligne
+                        </a>
+                        <a href="#" class="btn btn-outline">
+                            <i class="fab fa-github"></i> Code source
+                        </a>
+                        <a href="index.html#projects" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i> Retour aux projets
+                        </a>
+                    </div>
+                    
+                    <div class="project-navigation">
+                        <a href="#" class="nav-project prev">
+                            <i class="fas fa-chevron-left"></i>
+                            <div>
+                                <div class="nav-label">Projet précédent</div>
+                                <div class="nav-title">Application Web React</div>
+                            </div>
+                        </a>
+                        <a href="#" class="nav-project next">
+                            <i class="fas fa-chevron-right"></i>
+                            <div>
+                                <div class="nav-label">Projet suivant</div>
+                                <div class="nav-title">Site E-commerce</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="project-sidebar">
+                    <div class="sidebar-card">
+                        <h3>Technologies utilisées</h3>
+                        <div class="tech-tags">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">DOM API</span>
+                            <span class="tech-tag">LocalStorage</span>
+                            <span class="tech-tag">Canvas</span>
+                            <span class="tech-tag">CSS Animations</span>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3>Détails du Projet</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                            <div>
+                                <strong style="color: var(--primary);">Statut:</strong><br>
+                                <span>Terminé</span>
+                            </div>
+                            <div>
+                                <strong style="color: var(--primary);">Durée:</strong><br>
+                                <span>3 semaines</span>
+                            </div>
+                            <div>
+                                <strong style="color: var(--primary);">Type:</strong><br>
+                                <span>Projet personnel</span>
+                            </div>
+                            <div>
+                                <strong style="color: var(--primary);">Rôle:</strong><br>
+                                <span>Développeur full-stack</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-card">
+                        <h3>Compétences démontrées</h3>
+                        <ul class="features-list">
+                            <li>Manipulation avancée du DOM</li>
+                            <li>Gestion d'événements complexes</li>
+                            <li>Programmation orientée objet en JS</li>
+                            <li>Animations CSS avancées</li>
+                            <li>Optimisation des performances</li>
+                            <li>Design responsive</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <p>© 2025 MonPortfolio. Tous droits réservés.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-dribbble"></i></a>
+                <a href="#"><i class="fab fa-behance"></i></a>
+                <a href="https://www.linkedin.com/in/dexternkamta/"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>Designed by <a href="">DEXTER</a></p>
+        </div>
+    </footer>
+
+    <script src="JS/script.js"></script>
+</body>
+</html>

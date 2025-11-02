@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentions Légales & Droits d'Auteur - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Variables et reset */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #64748b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --text: #334155;
+            --bg: #ffffff;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+            --nav-bg: #ffffff;
+            --footer-bg: #1e293b;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #94a3b8;
+            --dark: #f1f5f9;
+            --light: #1e293b;
+            --text: #cbd5e1;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --border: #334155;
+            --nav-bg: #1e293b;
+            --footer-bg: #334155;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background-color: var(--bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--nav-bg);
+            box-shadow: 0 2px 10px var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Toggle Mode Sombre */
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .theme-toggle:hover {
+            color: var(--primary);
+            transform: rotate(30deg);
+        }
+        
+        .theme-toggle .fa-sun {
+            display: none;
+        }
+        
+        [data-theme="dark"] .theme-toggle .fa-moon {
+            display: none;
+        }
+        
+        [data-theme="dark"] .theme-toggle .fa-sun {
+            display: block;
+        }
+        
+        .menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+        }
+
+        /* Header */
+        .legal-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 8rem 0 4rem;
+            margin-top: 60px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .legal-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .legal-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Content */
+        .legal-content {
+            padding: 4rem 0;
+        }
+
+        .legal-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin: 2.5rem 0 1rem;
+            color: var(--dark);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin: 2rem 0 1rem;
+            color: var(--dark);
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin: 1.5rem 0;
+            padding-left: 2rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            text-align: justify;
+        }
+
+        .highlight {
+            background: var(--primary);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .warning {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #f59e0b;
+            margin: 2rem 0;
+        }
+
+        .dark-mode .warning {
+            background: #451a03;
+            color: #fed7aa;
+            border-left-color: #d97706;
+        }
+
+        .contact-info {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            transition: var(--transition);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-content a {
+            color: white;
+            transition: var(--transition);
+        }
+
+        .footer-content a:hover {
+            color: var(--primary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .legal-card {
+                padding: 2rem;
+            }
+            
+            .legal-title {
+                font-size: 2rem;
+            }
+            
+            .menu-btn {
+                display: block;
+            }
+
+            .nav-project {
+                justify-content: space-between;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--nav-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+
+            .nav-links.mobile-visible {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--nav-bg);
+                padding: 1rem;
+                box-shadow: 0 2px 10px var(--shadow);
+            }
+
+            .legal-card {
+                padding: 1.5rem;
+            }
+            
+            .legal-header {
+                padding: 6rem 0 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">MonPortfolio</div>
+            <div class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#home">Accueil</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Basculer le mode sombre">
+                        <i class="fas fa-moon"></i>
+                        <i class="fas fa-sun"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="legal-header">
+        <div class="container">
+            <h1 class="legal-title">Mentions Légales & Propriété Intellectuelle</h1>
+            <p class="legal-subtitle">Protection des droits d'auteur et conditions d'utilisation du portfolio</p>
+        </div>
+    </header>
+
+    <!-- Content -->
+    <main class="legal-content">
+        <div class="container">
+            <div class="legal-card">
+                <h1>AVIS DE PROTECTION DES DROITS D'AUTEUR</h1>
+                
+                <div class="warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>ATTENTION :</strong> L'ensemble des œuvres présentées sur ce portfolio sont protégées par les lois internationales sur le droit d'auteur et la propriété intellectuelle.
+                </div>
+
+                <h2>1. DÉFINITIONS JURIDIQUES</h2>
+                <p>Le présent portfolio, accessible à l'adresse https://dexterspinoza.github.io/portfolio_dexter/, constitue une <span class="highlight">œuvre composite</span> au sens des articles L.113-2 et suivants du Code de la Propriété Intellectuelle français.</p>
+
+                <h2>2. DROITS DE PROPRIÉTÉ INTELLECTUELLE</h2>
+                <h3>2.1 ŒUVRES ORIGINALES</h3>
+                <p>En ma qualité d'auteur et créateur, je détiens l'ensemble des droits patrimoniaux et moraux sur :</p>
+                <ul>
+                    <li>Les créations graphiques, designs et maquettes présentées</li>
+                    <li>Les photographies et illustrations originales</li>
+                    <li>Les concepts créatifs et direction artistique</li>
+                    <li>Les textes, descriptions et contenus rédactionnels</li>
+                    <li>L'architecture du portfolio et son design interface</li>
+                </ul>
+
+                <h3>2.2 PROTECTION INTERNATIONALE</h3>
+                <p>Ces œuvres bénéficient de la protection offerte par :</p>
+                <ul>
+                    <li>La Convention de Berne pour la protection des œuvres littéraires et artistiques</li>
+                    <li>Le Digital Millennium Copyright Act (DMCA) aux États-Unis</li>
+                    <li>La Directive européenne 2001/29/CE sur le droit d'auteur</li>
+                    <li>Le Code de la Propriété Intellectuelle français</li>
+                </ul>
+
+                <h2>3. CONDITIONS D'UTILISATION</h2>
+                <h3>3.1 VISITEURS ET CONSULTATION</h3>
+                <p>La consultation de ce portfolio est autorisée à titre personnel et informatif. Toute reproduction, même partielle, est strictement interdite sans autorisation écrite préalable.</p>
+
+                <h3>3.2 RECRUTEURS ET EMPLOYEURS</h3>
+                <p>Les recruteurs et employeurs potentiels sont autorisés à :</p>
+                <ul>
+                    <li>Consulter les projets pour évaluation des compétences</li>
+                    <li>Partager le lien du portfolio en interne</li>
+                    <li>Télécharger le CV fourni à des fins de recrutement</li>
+                </ul>
+                <p><strong>Interdiction formelle</strong> de reproduire les travaux dans des supports corporate ou de les utiliser comme références commerciales.</p>
+
+                <h2>4. RESTRICTIONS EXPLICITES</h2>
+                <p><span class="highlight">Il est strictement interdit de :</span></p>
+                <ul>
+                    <li>Reproduire, modifier ou adapter les créations présentées</li>
+                    <li>Utiliser les œuvres à des fins commerciales</li>
+                    <li>Revendiquer la paternité des travaux</li>
+                    <li>Intégrer les éléments dans d'autres portfolios ou sites</li>
+                    <li>Extraire le code source ou les assets créatifs</li>
+                    <li>Utiliser les designs comme inspiration directe pour des projets concurrents</li>
+                </ul>
+
+                <h2>5. AUTORISATIONS SPÉCIALES</h2>
+                <h3>5.1 COLLABORATIONS POTENTIELLES</h3>
+                <p>En cas d'intérêt pour une collaboration ou l'utilisation spécifique d'une œuvre, une licence d'utilisation peut être accordée sous conditions :</p>
+                <ol>
+                    <li>Demande écrite préalable détaillant l'usage envisagé</li>
+                    <li>Négociation des droits et rémunération appropriée</li>
+                    <li>Signature d'un contrat de cession de droits</li>
+                    <li>Mention obligatoire de la paternité des œuvres</li>
+                </ol>
+
+                <h3>5.2 ÉTUDIANTS ET APPRENANTS</h3>
+                <p>Les étudiants peuvent utiliser ce portfolio comme référence d'apprentissage, sous réserve de :</p>
+                <ul>
+                    <li>Ne pas copier directement les réalisations</li>
+                    <li>Citer la source en cas d'inspiration notable</li>
+                    <li>Utiliser à des fins éducatives uniquement</li>
+                </ul>
+
+                <h2>6. PROTECTION JURIDIQUE</h2>
+                <h3>6.1 PREUVES DE CRÉATION</h3>
+                <p>L'ensemble des œuvres présentées bénéficient de :</p>
+                <ul>
+                    <li>Preuves de datation et d'antériorité</li>
+                    <li>Enveloppes Soleau et dépôts INPI le cas échéant</li>
+                    <li>Archivage numérique horodaté</li>
+                    <li>Suivi de versions et historiques de création</li>
+                </ul>
+
+                <h3>6.2 SANCTIONS EN CAS DE CONTREFAÇON</h3>
+                <p>Toute violation des présentes conditions expose son auteur à :</p>
+                <ul>
+                    <li>Poursuites judiciaires pour contrefaçon</li>
+                    <li>Dommages et intérêts pour préjudice commercial</li>
+                    <li>Condamnations pénales prévues par l'article L.335-2 CPI</li>
+                    <li>Confiscation des supports de diffusion illicites</li>
+                </ul>
+
+                <h2>7. DROITS MORALS INALIÉNABLES</h2>
+                <p>Conformément à l'article L.121-1 du Code de la Propriété Intellectuelle, je conserve imprescriptiblement :</p>
+                <ul>
+                    <li>Le <strong>droit à la paternité</strong> de mes œuvres</li>
+                    <li>Le <strong>droit au respect</strong> de l'intégrité des créations</li>
+                    <li>Le <strong>droit de retrait</strong> et de repentir</li>
+                    <li>Le <strong>droit à la divulgation</strong> des œuvres</li>
+                </ul>
+
+                <h2>8. JURIDICTION COMPÉTENTE</h2>
+                <p>En cas de litige, les tribunaux français seront seuls compétents. Le présent avis est régi par le droit français et les conventions internationales relatives au droit d'auteur.</p>
+
+                <h2>9. MENTIONS OBLIGATOIRES</h2>
+                <div class="contact-info">
+                    <h3>CRÉDITS ET INFORMATIONS</h3>
+                    <p><strong>© 2025 NGASSA NKAMTA DEXTER. Tous droits réservés.</strong></p>
+                    <p>Portfolio professionnel - Créations originales</p>
+                    <p>Conforme au RGPD et aux dispositions légales françaises</p>
+                    <p>Dernière mise à jour : 02/11/2025</p>
+                </div>
+
+                <h2>10. CONTACT JURIDIQUE</h2>
+                <p>Pour toute question relative aux droits d'utilisation ou pour signaler une violation :</p>
+                <ul>
+                    <li>Email juridique : dexternkamta@gmail.com</li>
+                    <li>Délai de réponse : 7 jours ouvrés</li>
+                    <li>Procédure de notification DMCA disponible sur demande</li>
+                </ul>
+
+                <div class="warning">
+                    <i class="fas fa-balance-scale"></i>
+                    <strong>NOTE JURIDIQUE :</strong> La simple consultation de ce portfolio vaut acceptation des présentes conditions d'utilisation et reconnaissance de la protection des droits d'auteur. Toute utilisation non autorisée fera l'objet de poursuites systématiques.
+                </div>
+
+                <p style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: var(--secondary);">
+                    <i class="fas fa-shield-alt"></i><br>
+                    Document protégé - Reproduction interdite<br>
+                    © 2025 NGASSA NKAMTA DEXTER - Tous droits réservés
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <p>© 2025 NGASSA NKAMTA DEXTER. Tous droits réservés.</p>
+            <div class="footer-links">
+                <a href="privacy.html">Politique de confidentialité</a>
+            </div>
+            <p>Portfolio professionnel - Créations originales protégées</p>
+        </div>
+    </footer>
+
+    <script src="JS/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identité Visuelle Café Artisanal - Portfolio Design Graphique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Variables et reset */
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --secondary: #8B4513;
+            --secondary-dark: #654321;
+            --accent: #2F4F4F;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --text: #334155;
+            --bg: #ffffff;
+            --card-bg: #ffffff;
+            --footer-bg: #1e293b;
+            --nav-bg: #ffffff;
+            --border: #E5E7EB;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        [data-theme="dark"] {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --secondary: #8B4513;
+            --secondary-dark: #654321;
+            --accent: #708090;
+            --dark: #f1f5f9;
+            --light: #0f172a;
+            --gray: #64748b;
+            --text: #cbd5e1;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --footer-bg: #334155;
+            --nav-bg: #1e293b;
+            --border: #4B5563;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text);
+            background-color: var(--bg);
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--nav-bg);
+            box-shadow: 0 2px 10px var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            align-items: center;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 1.1rem;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+        
+        .theme-toggle:hover {
+            color: var(--primary);
+            transform: rotate(30deg);
+        }
+        
+        .theme-toggle .fa-sun {
+            display: none;
+        }
+        
+        [data-theme="dark"] .theme-toggle .fa-moon {
+            display: none;
+        }
+        
+        [data-theme="dark"] .theme-toggle .fa-sun {
+            display: block;
+        }
+        
+        .menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+        }
+        
+        /* Header du projet */
+        .project-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 10rem 0 6rem;
+            margin-top: 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .project-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        
+        .project-subtitle {
+            font-size: 1.4rem;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+        
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .meta-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+        
+        .meta-value {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+        
+        /* Hero Visual */
+        .hero-visual {
+            padding: 0;
+            margin: -4rem auto 4rem;
+            max-width: 1200px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero-image {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            transition: var(--transition);
+        }
+        
+        /* Contenu principal */
+        .project-content {
+            padding: 6rem 0;
+        }
+        
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 4rem;
+        }
+        
+        .project-main {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .project-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+        
+        .sidebar-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        /* Skills Section */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .skill-category {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+        
+        .skill-list {
+            list-style: none;
+        }
+        
+        .skill-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--gray);
+            display: flex;
+            align-items: center;
+        }
+        
+        .skill-list li:before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-right: 0.5rem;
+        }
+        
+        .skill-list li:last-child {
+            border-bottom: none;
+        }
+        
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin: 2.5rem 0 1.5rem;
+            color: var(--dark);
+        }
+        
+        p {
+            margin-bottom: 1.8rem;
+            font-size: 1.1rem;
+        }
+        
+        /* Galerie design */
+        .design-gallery {
+            margin: 3rem 0;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 2rem 1.5rem 1.5rem;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+        
+        /* Palette de couleurs */
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+        
+        .color-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .color-swatch {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .color-swatch:hover {
+            transform: scale(1.1);
+        }
+        
+        .color-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+        }
+        
+        /* Typography Showcase */
+        .typography-showcase {
+            margin: 3rem 0;
+            background: var(--light);
+            padding: 3rem;
+            border-radius: 15px;
+            transition: var(--transition);
+        }
+        
+        .font-sample {
+            margin-bottom: 2.5rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+        
+        .font-large {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .font-medium {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .font-small {
+            font-size: 1.1rem;
+            font-weight: 400;
+        }
+        
+        /* Applications */
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2.5rem 0;
+        }
+        
+        .application-item {
+            text-align: center;
+            padding: 2rem;
+            background: var(--light);
+            border-radius: 15px;
+            transition: var(--transition);
+        }
+        
+        .application-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .application-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        /* Outils */
+        .tools-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .tool-tag {
+            background-color: #e0f2fe;
+            color: #0369a1;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        [data-theme="dark"] .tool-tag {
+            background-color: #1e3a5f;
+            color: #93c5fd;
+        }
+        
+        /* Fonctionnalités */
+        .features-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .features-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--gray);
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .features-list li:before {
+            content: "✓";
+            color: var(--primary);
+            font-weight: bold;
+            display: inline-block;
+            width: 1.5em;
+            margin-right: 0.5rem;
+        }
+        
+        .features-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Boutons d'action */
+        .action-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: var(--primary);
+            color: white;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        footer {
+            background-color: var(--footer-bg);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .footer-content a {
+            color: white;
+            transition: var(--transition);
+        }
+
+        .footer-content a:hover {
+            color: var(--primary);
+        }
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+        }
+        
+        /* Responsive */
+        @media (max-width: 968px) {
+            .project-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .project-sidebar {
+                order: -1;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-title {
+                font-size: 2.5rem;
+            }
+
+            .project-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .menu-btn {
+                display: block;
+            }
+            
+            .nav-project {
+                justify-content: space-between;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--nav-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+
+            .nav-links.mobile-visible {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--nav-bg);
+                padding: 1rem;
+                box-shadow: 0 2px 10px var(--shadow);
+            }
+            
+            .color-palette {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">MonPortfolio</div>
+            <div class="menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="index.html#about">À propos</a></li>
+                <li><a href="index.html#projects">Projets</a></li>
+                <li><a href="index.html#skills">Compétences</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li>
+                    <button class="theme-toggle" id="themeToggle" aria-label="Basculer le mode sombre">
+                        <i class="fas fa-moon"></i>
+                        <i class="fas fa-sun"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Header du projet -->
+    <header class="project-header">
+        <div class="container">
+            <a href="index.html#project" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Retour au projets
+            </a>
+            <h1 class="project-title">Café Artisanal</h1>
+            <p class="project-subtitle">Identité visuelle complète pour une torréfaction artisanale - Création de marque, packaging et supports print</p>
+            
+            <div class="project-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Date</span>
+                    <span class="meta-value">Décembre 2023</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Catégorie</span>
+                    <span class="meta-value">Design Graphique</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Client</span>
+                    <span class="meta-value">Torréfaction Artisanale</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Mission</span>
+                    <span class="meta-value">Identité Visuelle</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Visual -->
+    <section class="hero-visual">
+        <div class="container">
+            <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1600&q=80" alt="Identité visuelle Café Artisanal" class="hero-image">
+        </div>
+    </section>
+
+    <!-- Contenu principal -->
+    <main class="project-content">
+        <div class="container">
+            <div class="project-grid">
+                <div class="project-main">
+                    <h2>Conception d'Identité Marque</h2>
+                    <p>Ce projet d'identité visuelle complète pour une torréfaction artisanale avait pour objectif de créer une marque premium qui reflète l'authenticité, la qualité et l'artisanat du café. La direction artistique s'inspire des traditions de torréfaction avec une touche contemporaine.</p>
+                    
+                    <p>Le concept créatif "Racines & Saveurs" met en avant l'origine des grains de café et le savoir-faire artisanal. Chaque élément visuel a été pensé pour évoquer la chaleur, l'authenticité et l'excellence.</p>
+                    
+                    <h3>Logo & Identité Visuelle</h3>
+                    <p>Le logotype combine une typographie élégante avec un symbole abstrait évoquant à la fois les cercles de croissance du caféier et les vapeurs aromatiques du café fraîchement torréfié.</p>
+                    
+                    <div class="design-gallery">
+                        <div class="gallery-grid">
+                            <div class="gallery-item">
+                                <img src="https://images.unsplash.com/photo-1587734195503-904fca47e0e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Logo principal">
+                                <div class="gallery-caption">
+                                    <h4>Logo Principal</h4>
+                                    <p>Version complète avec symbole et typographie</p>
+                                </div>
+                            </div>
+                            <div class="gallery-item">
+                                <img src="https://images.unsplash.com/photo-1587734195503-904fca47e0e9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Applications du logo">
+                                <div class="gallery-caption">
+                                    <h4>Applications</h4>
+                                    <p>Utilisation sur différents supports</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <h3>Palette de Couleurs</h3>
+                    <p>La palette chromatique a été soigneusement sélectionnée pour évoquer les tons naturels du café, de la torréfaction et de la terre, créant une identité chaleureuse et authentique.</p>
+                    
+                    <div class="color-palette">
+                        <div class="color-item">
+                            <div class="color-swatch" style="background: #D4A574;">Café Latte</div>
+                            <span class="color-name">#D4A574<br>Primaire</span>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-swatch" style="background: #8B4513;">Brun Saddle</div>
+                            <span class="color-name">#8B4513<br>Secondaire</span>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-swatch" style="background: #2F4F4F; color: white;">Gris Ardoise</div>
+                            <span class="color-name">#2F4F4F<br>Accent</span>
+                        </div>
+                        <div class="color-item">
+                            <div class="color-swatch" style="background: #FDF6E3; color: #333;">Crème Naturel</div>
+                            <span class="color-name">#FDF6E3<br>Fond</span>
+                        </div>
+                    </div>
+                    
+                    <h3>Typographie</h3>
+                    <p>La combinaison typographique associe l'élégance classique de Playfair Display pour les titres avec la lisibilité moderne d'Inter pour le texte courant.</p>
+                    
+                    <div class="typography-showcase">
+                        <div class="font-sample">
+                            <div class="font-large">Playfair Display</div>
+                            <div class="font-small">Titres et en-têtes - Élégance et tradition</div>
+                        </div>
+                        <div class="font-sample">
+                            <div class="font-medium">Inter Regular</div>
+                            <div class="font-small">Corps de texte - Lisibilité et modernité</div>
+                        </div>
+                    </div>
+                    
+                    <h3>Packaging & Applications</h3>
+                    <p>Le système de packaging a été conçu pour être à la fois fonctionnel et esthétique, avec des finitions premium qui valorisent le produit et créent une expérience unboxing mémorable.</p>
+                    
+                    <div class="applications-grid">
+                        <div class="application-item">
+                            <div class="application-icon">
+                                <i class="fas fa-box-open"></i>
+                            </div>
+                            <h4>Packaging Produit</h4>
+                            <p>Sacs de café et boîtes cadeaux</p>
+                        </div>
+                        <div class="application-item">
+                            <div class="application-icon">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <h4>Signalétique</h4>
+                            <p>Enseigne et identité boutique</p>
+                        </div>
+                        <div class="application-item">
+                            <div class="application-icon">
+                                <i class="fas fa-scroll"></i>
+                            </div>
+                            <h4>Supports Print</h4>
+                            <p>Cartes de visite, menus</p>
+                        </div>
+                        <div class="application-item">
+                            <div class="application-icon">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <h4>Digital</h4>
+                            <p>Site web et réseaux sociaux</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Défis Créatifs</h3>
+                    <p>Le principal défi était de créer une identité qui se distingue dans un marché saturé tout en restant authentique à l'artisanat du café. La solution a été de se concentrer sur l'histoire et les valeurs de la torréfaction plutôt que sur des tendances éphémères.</p>
+                    
+                    <p>Un autre défi important était de développer un système visuel suffisamment flexible pour s'adapter à différents supports tout en maintenant une cohérence forte.</p>
+                    
+                    <h3>Résultats & Impact</h3>
+                    <p>L'identité visuelle a été déployée avec succès sur l'ensemble des supports de la marque. Les retours clients ont été extrêmement positifs, avec une augmentation de 45% de la reconnaissance de marque et une amélioration notable de la perception premium des produits.</p>
+                    
+                    <p>Le packaging a notamment été récompensé par le Prix du Design Éco-responsable 2023 pour son utilisation de matériaux durables et son design intemporel.</p>
+                    
+                    <div class="action-buttons">
+                        <a href="#" class="btn">
+                            <i class="fas fa-book-open"></i> Voir le brandbook complet
+                        </a>
+                        <a href="#" class="btn btn-outline">
+                            <i class="fas fa-download"></i> Télécharger le case study
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="project-sidebar">
+                    <div class="sidebar-card">
+                        <h3>Outils Créatifs</h3>
+                        <div class="tools-grid">
+                            <span class="tool-tag">Adobe Illustrator</span>
+                            <span class="tool-tag">Adobe InDesign</span>
+                            <span class="tool-tag">Adobe Photoshop</span>
+                            <span class="tool-tag">Procreate</span>
+                            <span class="tool-tag">Figma</span>
+                        </div>
+                    </div>
+                    
+                    <div class="sidebar-card">
+                        <h3>Détails du Projet</h3>
+                        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                            <div>
+                                <strong style="color: var(--primary);">Durée:</strong><br>
+                                <span>8 semaines</span>
+                            </div>
+                            <div>
+                                <strong style="color: var(--primary);">Client:</strong><br>
+                                <span>Torréfaction Artisanale</span>
+                            </div>
+                            <div>
+                                <strong style="color: var(--primary);">Mission:</strong><br>
+                                <span>Identité visuelle complète</span>
+                            </div>
+                            <div>
+                                <strong style="color: var(--primary);">Statut:</strong><br>
+                                <span>Livré et déployé</span>
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="sidebar-card">
+                        <h3>Livrables</h3>
+                        <ul class="features-list">
+                            <li>Guide d'identité visuelle</li>
+                            <li>Système de logo complet</li>
+                            <li>Packaging design</li>
+                            <li>Supports print</li>
+                            <li>Assets digitaux</li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-card">
+                        <h3>Expertises</h3>
+                        <ul class="skill-list">
+                            <li>Direction Artistique</li>
+                            <li>Design de Logo</li>
+                            <li>Identité Visuelle</li>
+                            <li>Packaging Design</li>
+                            <li>Branding Stratégique</li>
+                        </ul>
+                    </div>                
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="copyright">
+                <p>&copy; 2025 NGASSA NKAMTA DEXTER. Tous droits réservés. <br>
+                <a href="mentions_legales.html">Mentions légales</a> • 
+                <a href="privacy.html">Confidentialité</a></p>
+            </div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-dribbble"></i></a>
+                <a href="#"><i class="fab fa-behance"></i></a>
+                <a href="https://www.linkedin.com/in/dexternkamta/"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <p>Designed by <a href="">DEXTER</a></p>
+        </div>
+    </footer>
+
+    <script src="JS/script.js"></script>
+</body>
+</html>

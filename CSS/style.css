@@ -432,6 +432,7 @@ nav {
 }
 
 .contact-form {
+    width: 100%;
     flex: 2;
     background: var(--card-bg);
     padding: 2rem;
@@ -587,4 +588,5 @@ footer {
     .timeline::before {
         display: none;
     }
+
 }
